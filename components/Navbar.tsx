@@ -26,39 +26,50 @@ export default function Navbar() {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
+      style={{
+        backdropFilter: "blur(24px) saturate(180%)",
+        WebkitBackdropFilter: "blur(24px) saturate(180%)",
+      }}
       className={cn(
-        "fixed top-0 left-0 w-full z-50 transition-all duration-500 py-6 px-10 flex justify-between items-center",
-        isScrolled ? "glass-dark py-4" : "bg-transparent"
+        "fixed top-0 left-0 w-full z-50 transition-all duration-500 py-6 px-10 flex justify-between items-center glass-dark",
+        isScrolled && "py-4"
       )}
     >
-      <Link href="/" className="text-2xl font-bold font-syne tracking-tighter group">
-        HAPTIC<span className="text-accent-cyan group-hover:text-accent-violet transition-colors">WEB</span>
+      <Link href="/" className="group inline-flex items-center gap-3">
+        <img
+          src="/images/Haptic%20Icon%20.png"
+          alt="Haptic Web logo"
+          className="h-11 w-auto md:h-12 transition-opacity group-hover:opacity-90"
+        />
+        <span className="text-2xl font-bold font-syne tracking-tighter">
+          HAPTIC<span className="text-accent-cyan group-hover:text-accent-violet transition-colors">WEB</span>
+        </span>
       </Link>
 
       <div className="hidden md:flex items-center space-x-12">
-          {["Services", "Work", "About", "Contact"].map((item) => {
-              const map: { [k: string]: string } = {
-                Services: "/services",
-                Work: "/#work",
-                About: "/#about",
-                Contact: "/contact",
-              };
-              return (
-                <Link
-                  key={item}
-                  href={map[item]}
-                  onClick={handleLinkClick}
-                  className="text-lg font-medium uppercase tracking-widest hover:text-accent-cyan transition-colors"
-                >
-                  {item}
-                </Link>
-              );
-            })}
+        {["Services", "Work", "About", "Contact"].map((item) => (
+          <Link
+            key={item}
+            href={
+              item === "Contact"
+                ? "/contact"
+                : item === "Services"
+                ? "/services"
+                : item === "Work"
+                ? "/#work"
+                : "/#about"
+            }
+            className="text-sm font-medium uppercase tracking-widest hover:text-accent-cyan transition-colors relative group"
+          >
+            {item}
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-cyan transition-all group-hover:w-full" />
+          </Link>
+        ))}
       </div>
 
-        <Link href="/contact" className="hidden md:block">
-          <MagneticButton className="py-2 px-6 text-sm">Start a Project</MagneticButton>
-        </Link>
+      <MagneticButton className="hidden md:block py-2 px-6 text-sm">
+        Start a Project
+      </MagneticButton>
 
       {/* Mobile Menu Button */}
       <button 
@@ -78,31 +89,30 @@ export default function Navbar() {
         className="fixed top-0 right-0 h-screen w-72 bg-gradient-to-b from-gray-900 to-black z-40 md:hidden pt-24 px-8 border-l border-accent-cyan/20"
       >
         <div className="flex flex-col space-y-8">
-          {["Services", "Work", "About", "Contact"].map((item) => {
-            const map: { [k: string]: string } = {
-              Services: "/services",
-              Work: "/#work",
-              About: "/#about",
-              Contact: "/contact",
-            };
-            return (
-              <Link
-                key={item}
-                href={map[item]}
-                onClick={handleLinkClick}
-                className="text-lg font-medium uppercase tracking-widest hover:text-accent-cyan transition-colors"
-              >
-                {item}
-              </Link>
-            );
-          })}
-          <Link
-            href="/contact"
+          {["Services", "Work", "About", "Contact"].map((item) => (
+            <Link
+              key={item}
+              href={
+                item === "Contact"
+                  ? "/contact"
+                  : item === "Services"
+                  ? "/services"
+                  : item === "Work"
+                  ? "/#work"
+                  : "/#about"
+              }
+              onClick={handleLinkClick}
+              className="text-lg font-medium uppercase tracking-widest hover:text-accent-cyan transition-colors"
+            >
+              {item}
+            </Link>
+          ))}
+          <button
             onClick={handleLinkClick}
-            className="mt-8 bg-gradient-to-r from-accent-cyan to-accent-violet py-3 px-6 text-sm font-bold uppercase tracking-widest text-black rounded-full hover:shadow-lg hover:shadow-accent-cyan/50 transition-all text-center"
+            className="mt-8 bg-gradient-to-r from-accent-cyan to-accent-violet py-3 px-6 text-sm font-bold uppercase tracking-widest text-black rounded-full hover:shadow-lg hover:shadow-accent-cyan/50 transition-all"
           >
             Start a Project
-          </Link>
+          </button>
         </div>
       </motion.div>
 

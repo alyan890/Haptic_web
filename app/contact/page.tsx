@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Twitter, Linkedin, Instagram, Github } from "lucide-react";
+import { Mail, Phone, Facebook, ChevronDown } from "lucide-react";
 import MagneticButton from "@/components/MagneticButton";
 
 export default function ContactPage() {
@@ -31,7 +31,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-white/40 text-xs uppercase tracking-widest mb-1">Email Us</p>
-                  <p className="text-xl font-bold">hello@hapticweb.com</p>
+                  <p className="text-xl font-bold">contact@hapticwebdesigns.com</p>
                 </div>
               </div>
 
@@ -41,27 +41,23 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-white/40 text-xs uppercase tracking-widest mb-1">Call Us</p>
-                  <p className="text-xl font-bold">+1 (555) 123-4567</p>
+                  <p className="text-xl font-bold">+1 (813) 214-3224</p>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-6 group cursor-pointer">
-                <div className="w-14 h-14 rounded-2xl glass flex items-center justify-center text-accent-cyan group-hover:bg-accent-cyan group-hover:text-background transition-all">
-                  <MapPin size={24} />
-                </div>
-                <div>
-                  <p className="text-white/40 text-xs uppercase tracking-widest mb-1">Visit Us</p>
-                  <p className="text-xl font-bold">123 Digital Ave, Tech City</p>
-                </div>
-              </div>
+             
             </div>
 
             <div className="mt-20 flex space-x-6">
-              {[Twitter, Linkedin, Instagram, Github].map((Icon, i) => (
-                <div key={i} className="w-12 h-12 rounded-full glass flex items-center justify-center text-white/60 hover:text-accent-cyan hover:border-accent-cyan/30 transition-all cursor-pointer">
-                  <Icon size={20} />
-                </div>
-              ))}
+              <a
+                href="https://www.facebook.com/share/1Fwqe2GjwR/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noreferrer"
+                className="w-12 h-12 rounded-full glass flex items-center justify-center text-white/60 hover:text-accent-cyan hover:border-accent-cyan/30 transition-all cursor-pointer"
+                aria-label="Facebook"
+              >
+                <Facebook size={20} />
+              </a>
             </div>
           </div>
 
@@ -95,21 +91,29 @@ export default function ContactPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-widest font-bold text-white/40 ml-2">Project Type</label>
-                  <select className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all appearance-none">
-                    <option className="bg-background">Web Development</option>
-                    <option className="bg-background">UI/UX Design</option>
-                    <option className="bg-background">E-Commerce</option>
-                    <option className="bg-background">Branding</option>
-                  </select>
+                  <div className="relative">
+                    <select className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-6 pr-12 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all appearance-none">
+                      <option className="bg-background">Web Development</option>
+                      <option className="bg-background">UI/UX Design</option>
+                      <option className="bg-background">E-Commerce</option>
+                      <option className="bg-background">Branding</option>
+                      <option className="bg-background">Other</option>
+                    </select>
+                    <ChevronDown size={18} className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-white/50" />
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-widest font-bold text-white/40 ml-2">Budget Range</label>
-                  <select className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all appearance-none">
-                    <option className="bg-background">$5k - $10k</option>
-                    <option className="bg-background">$10k - $25k</option>
-                    <option className="bg-background">$25k - $50k</option>
-                    <option className="bg-background">$50k+</option>
-                  </select>
+                  <div className="relative">
+                    <select className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-6 pr-12 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all appearance-none">
+                      <option className="bg-background">Less than $5k</option>
+                      <option className="bg-background">$5k - $10k</option>
+                      <option className="bg-background">$10k - $25k</option>
+                      <option className="bg-background">$25k - $50k</option>
+                      <option className="bg-background">$50k+</option>
+                    </select>
+                    <ChevronDown size={18} className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-white/50" />
+                  </div>
                 </div>
               </div>
 

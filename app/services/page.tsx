@@ -77,9 +77,16 @@ export default function ServicesPage() {
                 </div>
               </div>
               <div className="flex-1 w-full aspect-square glass rounded-[3rem] relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent-cyan/20 to-accent-violet/20 group-hover:scale-110 transition-transform duration-700" />
+                <div
+                  className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700"
+                  style={{
+                    backgroundImage: `url(${service.image})`,
+                    backgroundPosition: service.imagePosition ?? "center center",
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/45 to-black/75" />
                 <div className="absolute inset-0 flex items-center justify-center">
-                   <service.icon size={120} className="text-white/10 group-hover:text-white/20 transition-colors" />
+                   <service.icon size={120} className="text-white/15 group-hover:text-accent-cyan/40 transition-colors" />
                 </div>
               </div>
             </div>

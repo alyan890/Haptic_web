@@ -19,42 +19,54 @@ export const SERVICES = [
     title: "Web Design",
     description: "Creating visually stunning, user-centric designs that capture your brand's essence and engage your audience.",
     icon: Palette,
-    features: ["UI/UX Design", "Brand Identity", "Prototyping", "Mobile-First Design"]
+    features: ["UI/UX Design", "Brand Identity", "Prototyping", "Mobile-First Design"],
+    image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=1400&q=80",
+    imagePosition: "center center"
   },
   {
     id: "02",
     title: "Web Development",
     description: "Building fast, secure, and scalable websites using the latest technologies and best practices.",
     icon: Code2,
-    features: ["Next.js/React", "Custom CMS", "API Integration", "Performance Optimization"]
+    features: ["Next.js/React", "Custom CMS", "API Integration", "Performance Optimization"],
+    image: "https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=1400&q=80",
+    imagePosition: "center center"
   },
   {
     id: "03",
     title: "E-Commerce",
     description: "Developing powerful online stores that drive sales and provide seamless shopping experiences.",
     icon: ShoppingBag,
-    features: ["Shopify Development", "Custom Checkout", "Payment Integration", "Inventory Management"]
+    features: ["Shopify Development", "Custom Checkout", "Payment Integration", "Inventory Management"],
+    image: "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&w=1400&q=80",
+    imagePosition: "center center"
   },
   {
     id: "04",
     title: "UI/UX Design",
     description: "Crafting intuitive digital experiences focused on user behavior and business objectives.",
     icon: Layout,
-    features: ["User Research", "Wireframing", "Usability Testing", "Interaction Design"]
+    features: ["User Research", "Wireframing", "Usability Testing", "Interaction Design"],
+    image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1400&q=80",
+    imagePosition: "center center"
   },
   {
     id: "05",
     title: "SEO & Performance",
     description: "Optimizing your digital presence for search engines and lightning-fast loading speeds.",
     icon: LineChart,
-    features: ["Technical SEO", "Core Web Vitals", "Content Strategy", "Analytics Setup"]
+    features: ["Technical SEO", "Core Web Vitals", "Content Strategy", "Analytics Setup"],
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=80",
+    imagePosition: "center center"
   },
   {
     id: "06",
     title: "Web Applications",
     description: "Transforming complex business logic into powerful, easy-to-use web-based software solutions.",
     icon: Zap,
-    features: ["SaaS Development", "Real-time Apps", "Dashboard Design", "Cloud Architecture"]
+    features: ["SaaS Development", "Real-time Apps", "Dashboard Design", "Cloud Architecture"],
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1400&q=80",
+    imagePosition: "center center"
   }
 ];
 
@@ -90,19 +102,25 @@ export const STATS = [
 
 export const PORTFOLIO = [
   {
-    title: "Aura Skincare",
+    title: "Southern Kymber",
     category: "E-Commerce",
-    image: "linear-gradient(135deg, #7c3aed 0%, #00f5ff 100%)",
+    image: "/images/sk.PNG",
+    imagePosition: "center center",
+    url: "https://southernkymbercreation.com",
   },
   {
-    title: "Nexus Fintech",
+    title: "Freight This",
     category: "Web Application",
-    image: "linear-gradient(135deg, #00f5ff 0%, #7c3aed 100%)",
+    image: "/images/ft.PNG",
+    imagePosition: "center center",
+    url: "https://www.freightthis.com",
   },
   {
-    title: "Verve Creative",
+    title: "Prehistoric Parties and Events",
     category: "Brand Identity",
-    image: "linear-gradient(135deg, #22c55e 0%, #0ea5e9 100%)",
+    image: "/images/capture6.png",
+    imagePosition: "center center",
+    url: "https://www.prehistoricpartiesandevents.com/",
   }
 ];
 

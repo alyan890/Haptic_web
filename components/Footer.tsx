@@ -1,24 +1,36 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Twitter, Linkedin, Instagram } from "lucide-react";
+import { Facebook } from "lucide-react";
 
 export default function Footer() {
   return (
     <footer className="bg-background pt-20 pb-10 px-10 border-t border-white/5">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
         <div className="col-span-1 md:col-span-2">
-          <Link href="/" className="text-3xl font-bold font-syne tracking-tighter mb-6 block">
-            HAPTIC<span className="text-accent-cyan">WEB</span>
+          <Link href="/" className="mb-6 inline-flex items-center gap-3">
+            <img
+              src="/images/Haptic%20Icon%20.png"
+              alt="Haptic Web logo"
+              className="h-14 w-auto"
+            />
+            <span className="text-3xl font-bold font-syne tracking-tighter">
+              HAPTIC<span className="text-accent-cyan">WEB</span>
+            </span>
           </Link>
           <p className="text-white/60 max-w-sm mb-8">
             We build high-end digital experiences that help brands stand out in the modern web landscape.
           </p>
           <div className="flex space-x-6">
-            <Link href="#" className="hover:text-accent-cyan transition-colors"><Twitter size={20} /></Link>
-            <Link href="#" className="hover:text-accent-cyan transition-colors"><Linkedin size={20} /></Link>
-            <Link href="#" className="hover:text-accent-cyan transition-colors"><Github size={20} /></Link>
-            <Link href="#" className="hover:text-accent-cyan transition-colors"><Instagram size={20} /></Link>
+            <a
+              href="https://www.facebook.com/share/1Fwqe2GjwR/?mibextid=wwXIfr"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-accent-cyan transition-colors"
+              aria-label="Facebook"
+            >
+              <Facebook size={20} />
+            </a>
           </div>
         </div>
 
@@ -37,7 +49,6 @@ export default function Footer() {
           <ul className="space-y-4 text-white/60">
             <li>hello@hapticweb.com</li>
             <li>+1 (555) 123-4567</li>
-            <li>123 Digital Ave, Tech City, TC 10101</li>
           </ul>
         </div>
       </div>

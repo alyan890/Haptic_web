@@ -6,12 +6,19 @@ import { motion, useSpring } from "framer-motion";
 export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const springConfig = { damping: 25, stiffness: 200 };
   const cursorX = useSpring(0, springConfig);
   const cursorY = useSpring(0, springConfig);
 
   useEffect(() => {
+    const mobileQuery = window.matchMedia("(max-width: 767px), (pointer: coarse)");
+    const updateMobileState = () => setIsMobile(mobileQuery.matches);
+
+    updateMobileState();
+    mobileQuery.addEventListener("change", updateMobileState);
+
     const moveMouse = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -36,10 +43,15 @@ export default function CustomCursor() {
     window.addEventListener("mouseover", handleHoverStart);
 
     return () => {
+      mobileQuery.removeEventListener("change", updateMobileState);
       window.removeEventListener("mousemove", moveMouse);
       window.removeEventListener("mouseover", handleHoverStart);
     };
   }, [cursorX, cursorY]);
+
+  if (isMobile) {
+    return null;
+  }
 
   return (
     <>

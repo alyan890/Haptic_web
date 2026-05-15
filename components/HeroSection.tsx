@@ -20,7 +20,7 @@ export default function HeroSection() {
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % words.length);
-    }, 3000);
+    }, 1000); // Change word every 1 seconds
     return () => clearInterval(timer);
   }, []);
 
