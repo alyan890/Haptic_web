@@ -1,10 +1,47 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Phone, Facebook, ChevronDown } from "lucide-react";
+import { useState } from "react";
+import { Mail, Phone, Facebook, ChevronDown, Loader2, CheckCircle2 } from "lucide-react";
 import MagneticButton from "@/components/MagneticButton";
 
 export default function ContactPage() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError("");
+
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzybDD7w7LSJ7KBiDj72bC5vq2aSRGrPuq4mdiyoSBrXIl0WuBR0nRhemTACbZoxPU8/exec";
+      
+      const response = await fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors", // Necessary for some Apps Script deployments
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      // Since mode is "no-cors", we can't read the response body.
+      // We assume success if no error was thrown during fetch.
+      setIsSuccess(true);
+    } catch (err: any) {
+      // Fallback for demo purposes if URL is not set
+      console.error(err);
+      setError("Failed to send message. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="pt-32">
       <section className="px-10 pb-24 max-w-7xl mx-auto">
@@ -44,8 +81,6 @@ export default function ContactPage() {
                   <p className="text-xl font-bold">+1 (813) 214-3224</p>
                 </div>
               </div>
-
-             
             </div>
 
             <div className="mt-20 flex space-x-6">
@@ -68,76 +103,103 @@ export default function ContactPage() {
             transition={{ delay: 0.2 }}
             className="glass p-10 md:p-16 rounded-[3rem] relative"
           >
-            <form
-              className="space-y-8"
-              method="POST"
-              action="https://formsubmit.co/contact@hapticwebdesigns.com"
-            >
-              <input type="hidden" name="_subject" value="New Contact Form Submission" />
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_template" value="table" />
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-widest font-bold text-white/40 ml-2">Name</label>
-                  <input 
-                    type="text" 
-                    placeholder="John Doe"
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all"
-                  />
+            {isSuccess ? (
+              <div className="h-full flex flex-col items-center justify-center text-center space-y-6 py-20">
+                <div className="w-20 h-20 rounded-full bg-accent-cyan/20 flex items-center justify-center text-accent-cyan">
+                  <CheckCircle2 size={48} />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-widest font-bold text-white/40 ml-2">Email</label>
-                  <input 
-                    type="email" 
-                    placeholder="john@example.com"
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all"
-                  />
-                </div>
+                <h3 className="text-3xl font-bold font-syne">Message Sent!</h3>
+                <p className="text-white/60 max-w-xs">
+                  Thank you for reaching out. We&apos;ll get back to you within 24 hours.
+                </p>
+                <button 
+                  onClick={() => setIsSuccess(false)}
+                  className="text-accent-cyan font-bold uppercase tracking-widest text-sm hover:underline"
+                >
+                  Send another message
+                </button>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-widest font-bold text-white/40 ml-2">Project Type</label>
-                  <div className="relative">
-                    <select className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-6 pr-12 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all appearance-none">
-                      <option className="bg-background">Web Development</option>
-                      <option className="bg-background">UI/UX Design</option>
-                      <option className="bg-background">E-Commerce</option>
-                      <option className="bg-background">Branding</option>
-                      <option className="bg-background">Other</option>
-                    </select>
-                    <ChevronDown size={18} className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-white/50" />
+            ) : (
+              <form className="space-y-8" onSubmit={handleSubmit}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-2">
+                    <label className="text-xs uppercase tracking-widest font-bold text-white/40 ml-2">Name</label>
+                    <input 
+                      required
+                      name="name"
+                      type="text" 
+                      placeholder="John Doe"
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs uppercase tracking-widest font-bold text-white/40 ml-2">Email</label>
+                    <input 
+                      required
+                      name="email"
+                      type="email" 
+                      placeholder="john@example.com"
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all"
+                    />
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-widest font-bold text-white/40 ml-2">Budget Range</label>
-                  <div className="relative">
-                    <select className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-6 pr-12 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all appearance-none">
-                      <option className="bg-background">Less than $5k</option>
-                      <option className="bg-background">$5k - $10k</option>
-                      <option className="bg-background">$10k - $25k</option>
-                      <option className="bg-background">$25k - $50k</option>
-                      <option className="bg-background">$50k+</option>
-                    </select>
-                    <ChevronDown size={18} className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-white/50" />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-2">
+                    <label className="text-xs uppercase tracking-widest font-bold text-white/40 ml-2">Project Type</label>
+                    <div className="relative">
+                      <select name="projectType" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-6 pr-12 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all appearance-none">
+                        <option className="bg-background">Web Development</option>
+                        <option className="bg-background">UI/UX Design</option>
+                        <option className="bg-background">E-Commerce</option>
+                        <option className="bg-background">Branding</option>
+                        <option className="bg-background">Other</option>
+                      </select>
+                      <ChevronDown size={18} className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-white/50" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs uppercase tracking-widest font-bold text-white/40 ml-2">Budget Range</label>
+                    <div className="relative">
+                      <select name="budget" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-6 pr-12 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all appearance-none">
+                        <option className="bg-background">Less than $5k</option>
+                        <option className="bg-background">$5k - $10k</option>
+                        <option className="bg-background">$10k - $25k</option>
+                        <option className="bg-background">$25k - $50k</option>
+                        <option className="bg-background">$50k+</option>
+                      </select>
+                      <ChevronDown size={18} className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-white/50" />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="space-y-2">
-                <label className="text-xs uppercase tracking-widest font-bold text-white/40 ml-2">Message</label>
-                <textarea 
-                  rows={5}
-                  placeholder="Tell us about your project..."
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all resize-none"
-                />
-              </div>
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-widest font-bold text-white/40 ml-2">Message</label>
+                  <textarea 
+                    required
+                    name="message"
+                    rows={5}
+                    placeholder="Tell us about your project..."
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all resize-none"
+                  />
+                </div>
 
-              <MagneticButton className="w-full py-6 text-xl">
-                Send Message
-              </MagneticButton>
-            </form>
+                {error && <p className="text-red-500 text-sm ml-2">{error}</p>}
+
+                <MagneticButton 
+                  className="w-full py-6 text-xl flex items-center justify-center space-x-3"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="animate-spin" />
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <span>Send Message</span>
+                  )}
+                </MagneticButton>
+              </form>
+            )}
           </motion.div>
         </div>
       </section>
