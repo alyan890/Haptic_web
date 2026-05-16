@@ -68,7 +68,15 @@ export default function ContactPage() {
             transition={{ delay: 0.2 }}
             className="glass p-10 md:p-16 rounded-[3rem] relative"
           >
-            <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+            <form
+              className="space-y-8"
+              method="POST"
+              action="https://formsubmit.co/contact@hapticwebdesigns.com"
+            >
+              <input type="hidden" name="_subject" value="New Contact Form Submission" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-widest font-bold text-white/40 ml-2">Name</label>

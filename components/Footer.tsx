@@ -47,8 +47,8 @@ export default function Footer() {
         <div>
           <h4 className="text-lg font-bold mb-6 font-syne uppercase tracking-wider">Contact</h4>
           <ul className="space-y-4 text-white/60">
-            <li>hello@hapticweb.com</li>
-            <li>+1 (555) 123-4567</li>
+            <li>contact@hapticwebdesigns.com</li>
+            <li>+1 (813) 214-3224</li>
           </ul>
         </div>
       </div>

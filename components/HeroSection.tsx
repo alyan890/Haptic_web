@@ -16,7 +16,7 @@ export default function HeroSection() {
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const y2 = useTransform(scrollY, [0, 500], [0, -150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-
+  
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % words.length);
