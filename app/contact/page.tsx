@@ -23,16 +23,18 @@ export default function ContactPage() {
       
       const response = await fetch(SCRIPT_URL, {
         method: "POST",
-        mode: "no-cors", // Necessary for some Apps Script deployments
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "text/plain;charset=utf-8", // Using text/plain avoids preflight CORS checks while still allowing data transfer
         },
         body: JSON.stringify(data),
       });
 
-      // Since mode is "no-cors", we can't read the response body.
-      // We assume success if no error was thrown during fetch.
-      setIsSuccess(true);
+      const result = await response.json();
+      if (result.result === "success") {
+        setIsSuccess(true);
+      } else {
+        throw new Error(result.error || "Submission failed");
+      }
     } catch (err: any) {
       // Fallback for demo purposes if URL is not set
       console.error(err);
