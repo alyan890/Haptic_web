@@ -9,6 +9,7 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
+  const googleScriptUrl = "https://script.google.com/macros/s/AKfycbyO5jUGQfTiAihEZWdBp7V4jrruJ4_Khh_7eL7T6e4kZ7htn0uFWsPwhsAbav-Iepbo/exec";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,29 +17,35 @@ export default function ContactPage() {
     setError("");
 
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
+    const projectType = String(formData.get("projectType") || "");
+    const budgetRange = String(formData.get("budgetRange") || "");
+
+    const payload = {
+      name: String(formData.get("name") || ""),
+      email: String(formData.get("email") || ""),
+      service: budgetRange ? `${projectType} | ${budgetRange}` : projectType,
+      message: String(formData.get("message") || ""),
+    };
 
     try {
-      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzybDD7w7LSJ7KBiDj72bC5vq2aSRGrPuq4mdiyoSBrXIl0WuBR0nRhemTACbZoxPU8/exec";
-      
-      const response = await fetch(SCRIPT_URL, {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: {
-          "Content-Type": "text/plain;charset=utf-8", // Using text/plain avoids preflight CORS checks while still allowing data transfer
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       });
 
-      const result = await response.json();
-      if (result.result === "success") {
+      const result = await res.json();
+
+      if (result.ok) {
         setIsSuccess(true);
       } else {
-        throw new Error(result.error || "Submission failed");
+        setError("Failed to send message. Please try again.");
       }
     } catch (err: any) {
-      // Fallback for demo purposes if URL is not set
-      console.error(err);
-      setError("Failed to send message. Please try again later.");
+      console.error("Submission error:", err);
+      setError(`Failed to send message: ${err.message || "Please try again later."}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -150,7 +157,7 @@ export default function ContactPage() {
                   <div className="space-y-2">
                     <label className="text-xs uppercase tracking-widest font-bold text-white/40 ml-2">Project Type</label>
                     <div className="relative">
-                      <select name="projectType" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-6 pr-12 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all appearance-none">
+                      <select name="projectType" defaultValue="Web Development" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-6 pr-12 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all appearance-none">
                         <option className="bg-background">Web Development</option>
                         <option className="bg-background">UI/UX Design</option>
                         <option className="bg-background">E-Commerce</option>
@@ -163,7 +170,7 @@ export default function ContactPage() {
                   <div className="space-y-2">
                     <label className="text-xs uppercase tracking-widest font-bold text-white/40 ml-2">Budget Range</label>
                     <div className="relative">
-                      <select name="budget" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-6 pr-12 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all appearance-none">
+                      <select name="budgetRange" defaultValue="Less than $5k" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-6 pr-12 outline-none focus:border-accent-cyan/50 focus:bg-white/10 transition-all appearance-none">
                         <option className="bg-background">Less than $5k</option>
                         <option className="bg-background">$5k - $10k</option>
                         <option className="bg-background">$10k - $25k</option>
