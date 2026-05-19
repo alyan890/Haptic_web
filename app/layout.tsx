@@ -20,6 +20,11 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "Haptic Web Designs | Modern Web Development Agency",
   description: "High-end digital experiences for forward-thinking brands.",
+  icons: {
+    icon: "/images/Haptic%20Icon%20.png",
+    shortcut: "/images/Haptic%20Icon%20.png",
+    apple: "/images/Haptic%20Icon%20.png",
+  },
 };
 
 export default function RootLayout({
